@@ -1,0 +1,6 @@
+<div>
+  <p>chart</p>
+
+  <gb-pie-chart *ngIf="chartModel.getClassName() == 'PieChart' " [chartModel]="chartModel"></gb-pie-chart>
+  <gb-bar-chart *ngIf="chartModel.getClassName() == 'BarChart' " [chartModel]="chartModel"></gb-bar-chart>
+</div>

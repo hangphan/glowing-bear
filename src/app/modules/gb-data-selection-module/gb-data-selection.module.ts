@@ -28,6 +28,10 @@ import {SimpleTimer} from 'ng2-simple-timer';
 import {GbProjectionComponent} from './accordion-components/gb-projection/gb-projection.component';
 import {GbPatientSetConstraintComponent} from './constraint-components/gb-patient-set-constraint/gb-patient-set-constraint.component';
 import {GbPedigreeConstraintComponent} from './constraint-components/gb-pedigree-constraint/gb-pedigree-constraint.component';
+import {GbVisualizationComponent} from './accordion-components/gb-visualization/gb-visualization.component';
+import {GbChartComponent} from '../gb-charts-module/gb-chart/gb-chart.component';
+import {GbPieChartComponent} from '../gb-charts-module/gb-pie-chart/gb-pie-chart.component';
+import {GbBarChartComponent} from '../gb-charts-module/gb-bar-chart/gb-bar-chart.component';
 
 @NgModule({
   imports: [
@@ -56,14 +60,18 @@ import {GbPedigreeConstraintComponent} from './constraint-components/gb-pedigree
   declarations: [
     GbDataSelectionComponent,
     GbSelectionComponent,
+    GbProjectionComponent,
+    GbVisualizationComponent,
     GbExportComponent,
     GbStudyConstraintComponent,
     GbCombinationConstraintComponent,
     GbConstraintComponent,
     GbConceptConstraintComponent,
-    GbProjectionComponent,
     GbPatientSetConstraintComponent,
-    GbPedigreeConstraintComponent
+    GbPedigreeConstraintComponent,
+    GbChartComponent,
+    GbPieChartComponent,
+    GbBarChartComponent
   ],
   entryComponents: [
     GbConstraintComponent,

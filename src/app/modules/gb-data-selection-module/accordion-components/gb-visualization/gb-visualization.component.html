@@ -1,0 +1,9 @@
+<div>
+  data-summary:
+
+  <div *ngFor="let chart of chartService.charts">
+    chart here: {{chart.getClassName()}}
+    <gb-chart [chartModel]="chart"></gb-chart>
+  </div>
+</div>
+
