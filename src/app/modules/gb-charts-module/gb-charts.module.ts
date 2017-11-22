@@ -19,5 +19,5 @@ import {GbBarChartComponent} from './gb-bar-chart/gb-bar-chart.component';
     GbBarChartComponent
   ]
 })
-export class ChartsModule {
+export class GbChartsModule {
 }

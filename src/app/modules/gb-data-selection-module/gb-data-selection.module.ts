@@ -29,9 +29,7 @@ import {GbProjectionComponent} from './accordion-components/gb-projection/gb-pro
 import {GbPatientSetConstraintComponent} from './constraint-components/gb-patient-set-constraint/gb-patient-set-constraint.component';
 import {GbPedigreeConstraintComponent} from './constraint-components/gb-pedigree-constraint/gb-pedigree-constraint.component';
 import {GbVisualizationComponent} from './accordion-components/gb-visualization/gb-visualization.component';
-import {GbChartComponent} from '../gb-charts-module/gb-chart/gb-chart.component';
-import {GbPieChartComponent} from '../gb-charts-module/gb-pie-chart/gb-pie-chart.component';
-import {GbBarChartComponent} from '../gb-charts-module/gb-bar-chart/gb-bar-chart.component';
+import {GbChartsModule} from '../gb-charts-module/gb-charts.module';
 
 @NgModule({
   imports: [
@@ -49,7 +47,8 @@ import {GbBarChartComponent} from '../gb-charts-module/gb-bar-chart/gb-bar-chart
     TreeTableModule,
     DropdownModule,
     TooltipModule,
-    MessagesModule
+    MessagesModule,
+    GbChartsModule
   ],
   exports: [
     RouterModule
@@ -68,10 +67,7 @@ import {GbBarChartComponent} from '../gb-charts-module/gb-bar-chart/gb-bar-chart
     GbConstraintComponent,
     GbConceptConstraintComponent,
     GbPatientSetConstraintComponent,
-    GbPedigreeConstraintComponent,
-    GbChartComponent,
-    GbPieChartComponent,
-    GbBarChartComponent
+    GbPedigreeConstraintComponent
   ],
   entryComponents: [
     GbConstraintComponent,
