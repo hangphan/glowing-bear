@@ -6,7 +6,10 @@ import {Query} from '../models/query';
 import {ConstraintService} from './constraint.service';
 import {Step} from '../models/step';
 import {PatientSetConstraint} from '../models/constraints/patient-set-constraint';
+<<<<<<< HEAD
 import {FormatHelper} from '../utilities/FormatHelper';
+=======
+>>>>>>> add subscription panel collapse flag
 import {PatientSetResponse} from '../models/patient-set-response';
 
 type LoadingState = 'loading' | 'complete';
@@ -163,6 +166,7 @@ export class QueryService {
           queries.forEach(query => {
             query.collapsed = true;
             query.visible = true;
+            query.subscriptionCollapsed = true;
             if (query.createDate) {
               query.createDateInfo = FormatHelper.formatDateSemantics(query.createDate);
             }
@@ -605,7 +609,7 @@ export class QueryService {
     this.alert(alertSummary, alertDetails, 'info');
   }
 
-  public updateQuery(queryId: string, queryObject: object) {
+  public updateQuery(queryId: string, queryObject: object) {console.log('update query: ', queryObject);
     this.resourceService.updateQuery(queryId, queryObject)
       .subscribe(
         () => {
