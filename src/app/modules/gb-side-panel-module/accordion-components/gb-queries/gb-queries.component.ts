@@ -5,6 +5,10 @@ import {QueryService} from '../../../../services/query.service';
 import {QueryDiffRecord} from '../../../../models/query-diff-record';
 import {DownloadHelper} from '../../../../utilities/DownloadHelper';
 import {ConfirmationService} from 'primeng/primeng';
+<<<<<<< HEAD
+=======
+import {QuerySubscriptionFrequency} from '../../../../models/query-subscription-frequency';
+>>>>>>> add subscription freq buttons
 
 @Component({
   selector: 'gb-queries',
@@ -93,7 +97,8 @@ export class GbQueriesComponent implements OnInit {
       subscribed: query.subscribed
     };
     if (query.subscribed) {
-      queryObject['subscriptionFreq'] = query.subscriptionFreq;
+      queryObject['subscriptionFreq'] =
+        query.subscriptionFreq ? query.subscriptionFreq : QuerySubscriptionFrequency.WEEKLY;
     }
     this.queryService.updateQuery(query.id, queryObject);
   }
@@ -133,8 +138,25 @@ export class GbQueriesComponent implements OnInit {
     record.showCompleteRepresentation = !record.showCompleteRepresentation;
   }
 
+<<<<<<< HEAD
   removeQuery(event: Event, query: Query) {
     event.stopPropagation();
+=======
+  stopPropagation(event) {
+    console.log('event: ', event);
+    // event.stopPropagation();
+  }
+
+  putQuery(selectedQuery: Query) {
+    for (let query of this.queryService.queries) {
+      query.selected = false;
+    }
+    selectedQuery.selected = true;
+    this.queryService.restoreQuery(selectedQuery);
+  }
+
+  removeQuery(query: Query) {
+>>>>>>> add subscription freq buttons
     this.queryService.deleteQuery(query);
   }
 
@@ -155,6 +177,13 @@ export class GbQueriesComponent implements OnInit {
   downloadQuery(event: Event, query: Query) {
     event.stopPropagation();
     DownloadHelper.downloadJSON(query, query.name);
+  }
+
+  radioCheckSubscriptionFrequency(query) {
+    const queryObject = {
+      subscriptionFreq: query.subscriptionFreq
+    };
+    this.queryService.updateQuery(query.id, queryObject);
   }
 
   onFiltering(event) {
