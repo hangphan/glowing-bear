@@ -184,7 +184,7 @@ export class QueryService {
              */
             this.resourceService.diffQuery(query.id)
               .subscribe(
-                (records) => {console.log('records: ', query, records);
+                (records) => {
                   query.diffRecords = this.parseQueryDiffRecords(records);
                 }
               );
@@ -612,10 +612,18 @@ export class QueryService {
     this.alert(alertSummary, alertDetails, 'info');
   }
 
-  public updateQuery(queryId: string, queryObject: object) {
-    this.resourceService.updateQuery(queryId, queryObject)
+  public updateQuery(query: Query, queryObject: object) {
+    this.resourceService.updateQuery(query.id, queryObject)
       .subscribe(
         () => {
+          if (queryObject['subscribed']) {
+            this.resourceService.diffQuery(query.id)
+              .subscribe(
+                records => {
+                  query.diffRecords = this.parseQueryDiffRecords(records);
+                }
+              );
+          }
         },
         err => this.handle_error(err)
       );
