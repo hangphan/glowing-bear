@@ -184,7 +184,7 @@ export class QueryService {
              */
             this.resourceService.diffQuery(query.id)
               .subscribe(
-                (records) => {
+                (records) => {console.log('records: ', query, records);
                   query.diffRecords = this.parseQueryDiffRecords(records);
                 }
               );
@@ -650,7 +650,7 @@ export class QueryService {
         QuerySetType.PATIENT : QuerySetType.SAMPLE;
       diffRecord.createDate = record['createDate'];
       let items = [];
-      for (let entry of record['queryDiffEntries']) {
+      for (let entry of record['diffs']) {
         let item = new QueryDiffItem();
         item.id = entry['id'];
         item.objectId = entry['objectId'];
