@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions, ResponseContentType} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {map} from 'rxjs/operators';
 
 import {Study} from '../models/study';
 import {EndpointService} from './endpoint.service';
@@ -12,13 +13,13 @@ import {Constraint} from '../models/constraints/constraint';
 import {TrialVisit} from '../models/trial-visit';
 import {ExportJob} from '../models/export-job';
 import {Query} from '../models/query';
-import { PatientSetResponse } from '../models/patient-set-response';
-import {PedigreeRelationTypeResponse} from "../models/pedigree-relation-type-response";
+import {PatientSetResponse} from '../models/patient-set-response';
+import {PedigreeRelationTypeResponse} from '../models/pedigree-relation-type-response';
 
 @Injectable()
 export class ResourceService {
 
-  constructor(private http: Http, private endpointService: EndpointService) {
+  constructor(private http: HttpClient, private endpointService: EndpointService) {
   }
 
   /**
@@ -30,7 +31,7 @@ export class ResourceService {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
+      const err = JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
 
       if (err === 'invalid_token') {
@@ -54,10 +55,10 @@ export class ResourceService {
   private postCall(urlPart, body, responseField) {
     const endpoint = this.endpointService.getEndpoint();
     if (endpoint) {
-      let headers = new Headers();
-      headers.append('Authorization', `Bearer ${endpoint.accessToken}`);
-      headers.append('Content-Type', 'application/json');
-      const options = new RequestOptions({headers: headers});
+      let headers = new HttpHeaders();
+      headers.set('Authorization', `Bearer ${endpoint.accessToken}`);
+      headers.set('Content-Type', 'application/json');
+      const options = {headers: headers};
       const url = `${endpoint.getUrl()}/${urlPart}`;
       if (responseField) {
         return this.http.post(url, body, options)
@@ -79,24 +80,31 @@ export class ResourceService {
    * @param responseField
    * @returns {Observable<any | any>}
    */
-  private getCall(urlPart, responseField) {
+  private getCall<T>(urlPart, responseField): Observable<T> {
     const endpoint = this.endpointService.getEndpoint();
     if (endpoint) {
-      let headers = new Headers();
-      headers.append('Authorization', `Bearer ${endpoint.accessToken}`);
-      headers.append('Content-Type', 'application/json');
-      const options = new RequestOptions({headers: headers});
+      let headers = new HttpHeaders();
+      headers.set('Authorization', `Bearer ${endpoint.accessToken}`);
+      headers.set('Content-Type', 'application/json');
+      const options = {headers: headers};
       const url = `${endpoint.getUrl()}/${urlPart}`;
       if (responseField) {
-        return this.http.get(url, options)
-          .map((response: Response) => response.json()[responseField])
+        return this.http.get<T>(url, options)
+          // .map((response: Response) => response[responseField])
+        //   .pipe(
+        //     map(res => {
+        //       return res[responseField]
+        //     })
+        //   )
+        //   .map(res => {
+        //     return res[responseField]
+        //   })
           .catch(this.handleError.bind(this));
       } else {
-        return this.http.get(url, options)
-          .map((response: Response) => response.json())
+        return this.http.get<T>(url, options)
+          // .map((response: Response) => response.json())
           .catch(this.handleError.bind(this));
       }
-
     } else {
       this.handleError({message: 'Could not establish endpoint.'});
     }
@@ -111,10 +119,10 @@ export class ResourceService {
   private putCall(urlPart, body) {
     const endpoint = this.endpointService.getEndpoint();
     if (endpoint) {
-      let headers = new Headers();
-      headers.append('Authorization', `Bearer ${endpoint.accessToken}`);
-      headers.append('Content-Type', 'application/json');
-      let options = new RequestOptions({headers: headers});
+      let headers = new HttpHeaders();
+      headers.set('Authorization', `Bearer ${endpoint.accessToken}`);
+      headers.set('Content-Type', 'application/json');
+      const options = {headers: headers};
       let url = `${endpoint.getUrl()}/${urlPart}`;
       return this.http.put(url, body, options)
         .catch(this.handleError.bind(this));
@@ -131,10 +139,10 @@ export class ResourceService {
   private deleteCall(urlPart) {
     const endpoint = this.endpointService.getEndpoint();
     if (endpoint) {
-      let headers = new Headers();
-      headers.append('Authorization', `Bearer ${endpoint.accessToken}`);
-      headers.append('Content-Type', 'application/json');
-      let options = new RequestOptions({headers: headers});
+      let headers = new HttpHeaders();
+      headers.set('Authorization', `Bearer ${endpoint.accessToken}`);
+      headers.set('Content-Type', 'application/json');
+      const options = {headers: headers};
       let url = `${endpoint.getUrl()}/${urlPart}`;
       return this.http.delete(url, options)
         .catch(this.handleError.bind(this));
@@ -151,7 +159,7 @@ export class ResourceService {
   getStudies(): Observable<Study[]> {
     const urlPart = 'studies';
     const responseField = 'studies';
-    return this.getCall(urlPart, responseField);
+    return this.getCall<Study[]>(urlPart, responseField);
   }
 
   /**
@@ -319,16 +327,14 @@ export class ResourceService {
    */
   downloadExportJob(jobId: string) {
     let endpoint = this.endpointService.getEndpoint();
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/zip');
-    headers.append('Authorization', `Bearer ${endpoint.accessToken}`);
+    let headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/zip');
+    headers.set('Authorization', `Bearer ${endpoint.accessToken}`);
     let url = `${endpoint.getUrl()}/export/${jobId}/download`;
-    const options = new RequestOptions({
-      headers: headers,
-      responseType: ResponseContentType.Blob
-    });
-    return this.http.get(url, options)
-      .map((res: Response) => res)
+    let options = {
+      headers: headers
+    };
+    return this.http.get(url, {...options, responseType: 'blob'})
       .catch(this.handleError.bind(this));
   }
 

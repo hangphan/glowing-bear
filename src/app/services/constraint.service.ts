@@ -74,10 +74,10 @@ export class ConstraintService {
     this.allConstraints.push(new ConceptConstraint());
   }
 
-  private loadStudies() {
+  private loadStudies() { console.log('load studies');
     this.resourceService.getStudies()
       .subscribe(
-        studies => {
+        studies => { console.log('load studies: ', studies);
           // reset studies and study constraints
           this.studies = studies;
           this.studyConstraints = [];
