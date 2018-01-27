@@ -1,0 +1,75 @@
+<div class="gb-analysis-container">
+  <span class="row">
+    <!-- row selection -->
+    <span class="col-sm-3 gb-cross-table-rows-selection">
+      <div class="gb-cross-table-rows-selection-header">Rows</div>
+      <div *ngFor="let rowConcept of rowConcepts" class="gb-cross-table-row-selection">
+        <button type="button" class="btn btn-secondary gb-cross-table-secondary-btn"
+                (click)="removeRowConcept(rowConcept)">
+          {{rowConcept}}
+        </button>
+      </div>
+    </span>
+
+    <!-- candidates in the middle -->
+    <span class="col-sm-6 gb-cross-table-candidates">
+      <div class="gb-cross-table-candidates-header">Candidate concepts</div>
+      <div *ngFor="let candidate of conceptCandidates"
+           class="row gb-cross-table-candidate ">
+        <span class="col-sm-3">
+          <button type="button"
+                  (click)="addRowConcept(candidate)"
+                  class="btn btn-secondary gb-cross-table-secondary-btn">
+            <i class="fa fa-arrow-left"></i>
+          </button>
+        </span>
+        <span class="col-sm-6">{{candidate}}</span>
+        <span class="col-sm-3">
+          <button type="button"
+                  (click)="addColumnConcept(candidate)"
+                  class="btn btn-secondary gb-cross-table-secondary-btn">
+            <i class="fa fa-arrow-right"></i>
+          </button>
+        </span>
+      </div>
+    </span>
+
+    <!-- column selection -->
+    <span class="col-sm-3 gb-cross-table-cols-selection">
+      <div class="gb-cross-table-cols-selection-header">Columns</div>
+      <div *ngFor="let colConcept of columnConcepts" class="gb-cross-table-col-selection">
+        <button type="button" class="btn btn-secondary gb-cross-table-secondary-btn"
+                (click)="removeColumnConcept(colConcept)">
+          {{colConcept}}
+        </button>
+      </div>
+    </span>
+  </span>
+
+
+  <!-- the table itself -->
+  <div *ngIf="rows.length > 0 || cols.length > 0" class="gb-cross-table-container">
+    <p-table [columns]="cols" [value]="rows">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of cols"
+              class="gb-cross-table-col-header"
+              [pSortableColumn]="col.field">
+            {{col.label}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td *ngFor="let col of cols"
+              [ngClass]="col.field==='variables' ? 'gb-cross-table-row-header' : 'gb-cross-table-cell'">
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+

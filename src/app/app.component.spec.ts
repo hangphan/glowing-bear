@@ -25,6 +25,8 @@ import {GbNavBarModule} from './modules/gb-nav-bar-module/gb-nav-bar.module';
 import {GbSidePanelModule} from './modules/gb-side-panel-module/gb-side-panel.module';
 import {QueryService} from './services/query.service';
 import {QueryServiceMock} from './services/mocks/query.service.mock';
+import {CrossTableServiceMock} from './services/mocks/cross-table.service.mock';
+import {CrossTableService} from './services/cross-table.service';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -82,6 +84,10 @@ describe('AppComponent', () => {
         {
           provide: QueryService,
           useClass: QueryServiceMock
+        },
+        {
+          provide: CrossTableService,
+          useClass: CrossTableServiceMock
         }
       ]
     }).compileComponents();
