@@ -22,14 +22,14 @@ export class CrossTableService {
     this.countItems = [];
     this.rows = [];
 
-    this.conceptCandidates.push('concept-A');
-    this.conceptCandidates.push('concept-B');
-    this.conceptCandidates.push('concept-C');
-    this.conceptCandidates.push('concept-D');
-    this.conceptCandidates.push('concept-E');
-    this.conceptCandidates.push('concept-F');
-    this.conceptCandidates.push('concept-G');
-    this.conceptCandidates.push('concept-H');
+    this.conceptCandidates.push('concept-1-A');
+    this.conceptCandidates.push('concept-1-B');
+    this.conceptCandidates.push('concept-2-C');
+    this.conceptCandidates.push('concept-2-D');
+    this.conceptCandidates.push('concept-2-E');
+    this.conceptCandidates.push('concept-2-F');
+    this.conceptCandidates.push('concept-3-G');
+    this.conceptCandidates.push('concept-3-H');
     this.updateTable();
   }
 
