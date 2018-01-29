@@ -10,24 +10,24 @@
 .gb-cross-table-col-header {
   background-color: var(--gb-clinical-green-light-light);
   text-align: right;
-  color: #505050;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
+  color: dimgray;
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .gb-cross-table-row-header {
   background-color: var(--gb-clinical-green-light-light);
   font-weight: bold;
   text-align: right;
-  color: #505050;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
+  color: dimgray;
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .gb-cross-table-cell {
   text-align: right;
   color: dimgray;
-  border: 1px solid darkgrey;
+  border: 1px solid lightgray;
 }
 
 
@@ -41,9 +41,9 @@
   text-align: center;
   color: var(--gb-clinical-green-light);
   border-bottom: 1px solid lightgray;
+  margin-top: 1em;
 }
 .gb-cross-table-row-selection {
-  border-bottom: 1px solid lightgray;
 }
 
 /* ------------ cross table col selection styles ------------ */
@@ -56,9 +56,9 @@
   text-align: center;
   color: var(--gb-clinical-green-light);
   border-bottom: 1px solid lightgray;
+  margin-top: 1em;
 }
 .gb-cross-table-col-selection {
-  border-bottom: 1px solid lightgray;
 }
 
 /* ------------ cross table candidate styles ------------ */
