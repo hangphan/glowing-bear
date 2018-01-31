@@ -1,8 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {GbChartComponent} from './gb-chart.component';
-import {GenericComponentMock} from '../../../services/mocks/generic.component.mock';
 import {BarChart} from '../../../models/charts/bar-chart';
+import {MockComponent} from 'ng2-mock-component';
 
 describe('GbChartComponent', () => {
   let component: GbChartComponent;
@@ -12,8 +11,8 @@ describe('GbChartComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         GbChartComponent,
-        GenericComponentMock({selector: 'gb-pie-chart', inputs: ['chartModel']}),
-        GenericComponentMock({selector: 'gb-bar-chart', inputs: ['chartModel']})
+        MockComponent({selector: 'gb-pie-chart', inputs: ['chartModel']}),
+        MockComponent({selector: 'gb-bar-chart', inputs: ['chartModel']})
       ]
     })
       .compileComponents();

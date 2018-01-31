@@ -32,6 +32,7 @@ describe('GbDataSelectionComponent', () => {
         GbDataSelectionComponent,
         MockComponent({selector: 'gb-selection'}),
         MockComponent({selector: 'gb-projection'}),
+        MockComponent({selector: 'gb-visualization'}),
         MockComponent({selector: 'gb-export'})
       ],
       imports: [
